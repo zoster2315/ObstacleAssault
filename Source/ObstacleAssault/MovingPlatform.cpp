@@ -16,6 +16,8 @@ void AMovingPlatform::BeginPlay()
 	Super::BeginPlay();
 
 	StartLocation = GetActorLocation();
+
+	UE_LOG(LogTemp, Display, TEXT("Configured moved distance: %f"), MaxDistance);
 }
 
 // Called every frame
@@ -26,6 +28,9 @@ void AMovingPlatform::Tick(float DeltaTime)
 	FVector CurrentLocation = GetActorLocation();
 	if (FVector::Dist(CurrentLocation, StartLocation) >= MaxDistance)
 	{
+		float OverShoot = FVector::Dist(CurrentLocation, StartLocation) - MaxDistance;
+		FString Name = GetName();
+		UE_LOG(LogTemp, Display, TEXT("%s Overshot by: %f"), *Name, OverShoot);
 		PlatformVelocity = -PlatformVelocity;
 		StartLocation = CurrentLocation;
 	}
