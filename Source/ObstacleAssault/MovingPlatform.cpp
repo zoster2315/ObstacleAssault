@@ -25,6 +25,12 @@ void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	MovePlatform(DeltaTime);
+	RotatePlatform(DeltaTime);
+}
+
+void AMovingPlatform::MovePlatform(float DeltaTime)
+{
 	FVector CurrentLocation = GetActorLocation();
 	if (FVector::Dist(CurrentLocation, StartLocation) >= MaxDistance)
 	{
@@ -37,4 +43,13 @@ void AMovingPlatform::Tick(float DeltaTime)
 	CurrentLocation += PlatformVelocity * DeltaTime;
 	SetActorLocation(CurrentLocation);
 }
+
+void AMovingPlatform::RotatePlatform(float DeltaTime)
+{
+	FRotator CurrentRotation = GetActorRotation();
+	CurrentRotation += RotationVelocity * DeltaTime;
+	SetActorRotation(CurrentRotation);
+}
+
+
 
